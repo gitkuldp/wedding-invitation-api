@@ -1,2 +1,4 @@
 uploads
 go.mod.txt
+.env
+docs
