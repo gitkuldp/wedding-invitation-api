@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	weddinginvitation "github.com/LamichhaneBibek/wedding-invitation"
+	weddinginvitation "github.com/gitkuldp/wedding-invitation-api"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )

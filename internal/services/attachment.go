@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	weddinginvitation "github.com/LamichhaneBibek/wedding-invitation"
+	weddinginvitation "github.com/gitkuldp/wedding-invitation-api"
 	"github.com/gitkuldp/wedding-invitation-api/internal/api"
 	"github.com/gitkuldp/wedding-invitation-api/internal/api/helper"
 	"github.com/gitkuldp/wedding-invitation-api/internal/models"

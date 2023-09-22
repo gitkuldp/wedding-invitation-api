@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	weddinginvitation "github.com/LamichhaneBibek/wedding-invitation"
+	weddinginvitation "github.com/gitkuldp/wedding-invitation-api"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 )
