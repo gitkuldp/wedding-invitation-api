@@ -66,7 +66,7 @@ func (handler groomHandler) Create(ctx echo.Context) error {
 		result := models.TranslateError(err)
 		return api.ValidationErrorResponse(ctx, result)
 	}
-	invite, err := handler.groomService.CreateGroom(groom)
+	invite, err := handler.groomService.CreateGroom(groom, ctx)
 	if err != nil {
 		return api.ErrorResponse(ctx, err)
 	}
@@ -134,7 +134,7 @@ func (handler groomHandler) Update(ctx echo.Context) error {
 		return api.ValidationErrorResponse(ctx, result)
 	}
 
-	invite, err := handler.groomService.UpdateGroom(id, groom)
+	invite, err := handler.groomService.UpdateGroom(id, groom, ctx)
 	if err != nil {
 		return api.ErrorResponse(ctx, err)
 	}

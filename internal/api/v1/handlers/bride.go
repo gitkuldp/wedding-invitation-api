@@ -45,7 +45,7 @@ func (handler brideHandler) Create(ctx echo.Context) error {
 		result := models.TranslateError(err)
 		return api.ValidationErrorResponse(ctx, result)
 	}
-	invite, err := handler.brideService.CreateBride(bride)
+	invite, err := handler.brideService.CreateBride(bride, ctx)
 	if err != nil {
 		return api.ErrorResponse(ctx, err)
 	}
@@ -134,7 +134,7 @@ func (handler brideHandler) Update(ctx echo.Context) error {
 		return api.ValidationErrorResponse(ctx, result)
 	}
 
-	invite, err := handler.brideService.UpdateBride(id, bride)
+	invite, err := handler.brideService.UpdateBride(id, bride, ctx)
 	if err != nil {
 		return api.ErrorResponse(ctx, err)
 	}
