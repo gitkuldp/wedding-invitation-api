@@ -2,3 +2,5 @@ uploads
 go.mod.txt
 .env
 docs
+mail/sms.go
+mail/sender_test.go
