@@ -11,13 +11,17 @@ import (
 
 type User struct {
 	UserLoginAttempt
-	ID                 uuid.UUID `json:"id"`
+	ID                 uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	Phone              string    `json:"phone"`
 	Email              string    `json:"email"`
 	Password           string    `json:"password"`
 	IsActive           bool      `json:"is_active"`
 	TokenLastRevokedAt time.Time `json:"-"`
 	CreatedAt          time.Time `json:"created_at"`
+}
+
+func (u User) GetId() *uuid.UUID {
+	return &u.ID
 }
 
 type UserRole struct {
@@ -44,7 +48,7 @@ type UserView struct {
 }
 
 type Invitation struct {
-	ID        uuid.UUID `json:"id"`
+	ID        uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID    uuid.UUID `json:"user_id,omitempty"`
 	User      User
 	Title     string `json:"title"`
@@ -54,14 +58,14 @@ type Invitation struct {
 }
 
 type Attachment struct {
-	ID        uuid.UUID
-	TableName string `json:"table_name"`
-	TableID   string `json:"table_id"`
-	FileName  string `json:"file_name"`
-	FileSize  int    `json:"file_size"`
-	FileType  string `json:"file_type"`
-	FileURL   string `json:"file_url"`
-	IsActive  bool   `json:"is_active"`
+	ID        uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	TableName string    `json:"table_name"`
+	TableID   string    `json:"table_id"`
+	FileName  string    `json:"file_name"`
+	FileSize  int       `json:"file_size"`
+	FileType  string    `json:"file_type"`
+	FileURL   string    `json:"file_url"`
+	IsActive  bool      `json:"is_active"`
 	CreatedAt time.Time
 }
 
@@ -79,7 +83,7 @@ type InvitationView struct {
 }
 
 type Bride struct {
-	ID     uuid.UUID `json:"id"`
+	ID     uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID uuid.UUID `json:"user_id"`
 	User   User
 
@@ -93,18 +97,17 @@ type Bride struct {
 }
 
 type BrideView struct {
-	UserID         uuid.UUID `json:"user_id"`
-	Name           string    `json:"name"`
-	InstaID        string    `json:"insta_id"`
-	Address        string    `json:"address"`
-	FatherName     string    `json:"father_name"`
-	MotherName     string    `json:"mother_name"`
-	ChildTo        string    `json:"child_to"`
-	AdditionalInfo string    `json:"additional_info"`
+	Name           string `json:"name"`
+	InstaID        string `json:"insta_id"`
+	Address        string `json:"address"`
+	FatherName     string `json:"father_name"`
+	MotherName     string `json:"mother_name"`
+	ChildTo        string `json:"child_to"`
+	AdditionalInfo string `json:"additional_info"`
 }
 
 type Groom struct {
-	ID     uuid.UUID `json:"id"`
+	ID     uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID uuid.UUID `json:"user_id"`
 	User   User
 
@@ -118,18 +121,17 @@ type Groom struct {
 }
 
 type GroomView struct {
-	UserID         uuid.UUID `json:"user_id"`
-	Name           string    `json:"name"`
-	InstaID        string    `json:"insta_id"`
-	Address        string    `json:"address"`
-	FatherName     string    `json:"father_name"`
-	MotherName     string    `json:"mother_name"`
-	ChildTo        string    `json:"child_to"`
-	AdditionalInfo string    `json:"additional_info"`
+	Name           string `json:"name"`
+	InstaID        string `json:"insta_id"`
+	Address        string `json:"address"`
+	FatherName     string `json:"father_name"`
+	MotherName     string `json:"mother_name"`
+	ChildTo        string `json:"child_to"`
+	AdditionalInfo string `json:"additional_info"`
 }
 
 type Speech struct {
-	ID       uuid.UUID `json:""`
+	ID       uuid.UUID `json:"" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	FullName string    `json:""`
 	Address  string    `json:""`
 	Media    []string  `json:""`
@@ -137,7 +139,7 @@ type Speech struct {
 }
 
 type Confirmation struct {
-	ID       uuid.UUID `json:""`
+	ID       uuid.UUID `json:"" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	FullName string    `json:""`
 	Message  string    `json:""`
 }
@@ -145,7 +147,7 @@ type Confirmation struct {
 type InvitationDate struct {
 	InvitationID uuid.UUID  `json:""`
 	Invitation   Invitation `json:""`
-	ID           uuid.UUID  `json:""`
+	ID           uuid.UUID  `json:"" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	EventName    string     `json:""`
 	Date         time.Time  `json:""`
 	Location     string     `json:""`
