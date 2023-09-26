@@ -4,7 +4,9 @@ import (
 	"errors"
 
 	weddinginvitation "github.com/gitkuldp/wedding-invitation-api"
+	"github.com/gitkuldp/wedding-invitation-api/internal/models"
 	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
 
@@ -51,4 +53,9 @@ func (s service) Delete(obj interface{}) error {
 		}
 	}
 	return err
+}
+
+func GetUserId(ctx echo.Context) *uuid.UUID {
+	userData := ctx.Get("user").(models.User)
+	return userData.GetId()
 }
