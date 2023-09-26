@@ -2,7 +2,9 @@ package services
 
 import (
 	"github.com/gitkuldp/wedding-invitation-api/internal/models"
+	"github.com/gitkuldp/wedding-invitation-api/internal/utils"
 	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
 
@@ -20,8 +22,9 @@ func (gs *groomService) ListGroom() ([]*models.Groom, error) {
 	return groom, nil
 }
 
-func (gs groomService) fromView(view models.GroomView) *models.Groom {
+func (gs groomService) fromView(view models.GroomView, ctx echo.Context) *models.Groom {
 	return &models.Groom{
+		ID: uuid.New(),
 		// Photos:         view.Photos,
 		Name:           view.Name,
 		InstaID:        view.InstaID,
@@ -29,13 +32,14 @@ func (gs groomService) fromView(view models.GroomView) *models.Groom {
 		FatherName:     view.FatherName,
 		MotherName:     view.MotherName,
 		ChildTo:        view.ChildTo,
+		UserID:         utils.Deref(GetUserId(ctx)),
 		AdditionalInfo: view.AdditionalInfo,
 	}
 }
 
 // CreateGroom implements GroomService
-func (gs *groomService) CreateGroom(view models.GroomView) (*models.Groom, error) {
-	groom := gs.fromView(view)
+func (gs *groomService) CreateGroom(view models.GroomView, ctx echo.Context) (*models.Groom, error) {
+	groom := gs.fromView(view, ctx)
 	err := gs.Create(groom)
 	if err != nil {
 		return nil, gs.translate(err)
@@ -50,8 +54,8 @@ func (gs *groomService) FindGroom(id uuid.UUID) (*models.Groom, error) {
 }
 
 // UpdateGroom implements GroomService
-func (gs *groomService) UpdateGroom(id uuid.UUID, view models.GroomView) (uuid.UUID, error) {
-	groom := gs.fromView(view)
+func (gs *groomService) UpdateGroom(id uuid.UUID, view models.GroomView, ctx echo.Context) (uuid.UUID, error) {
+	groom := gs.fromView(view, ctx)
 	groom.ID = id
 	_, err := gs.service.Updates(groom, map[string]interface{}{"name": view.Name, "insta_id": view.InstaID, "address": view.Address, "father_name": view.FatherName, "mother_name": view.MotherName, "child_to": view.ChildTo, "additional_info": view.AdditionalInfo})
 	if err != nil {
@@ -61,8 +65,8 @@ func (gs *groomService) UpdateGroom(id uuid.UUID, view models.GroomView) (uuid.U
 }
 
 type GroomService interface {
-	CreateGroom(view models.GroomView) (*models.Groom, error)
-	UpdateGroom(id uuid.UUID, view models.GroomView) (uuid.UUID, error)
+	CreateGroom(view models.GroomView, ctx echo.Context) (*models.Groom, error)
+	UpdateGroom(id uuid.UUID, view models.GroomView, ctx echo.Context) (uuid.UUID, error)
 	FindGroom(id uuid.UUID) (*models.Groom, error)
 	ListGroom() ([]*models.Groom, error)
 }

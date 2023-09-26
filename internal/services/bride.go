@@ -2,7 +2,10 @@ package services
 
 import (
 	"github.com/gitkuldp/wedding-invitation-api/internal/models"
+	"github.com/gitkuldp/wedding-invitation-api/internal/utils"
+	"github.com/gitkuldp/wedding-invitation-api/mail"
 	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
 
@@ -10,14 +13,16 @@ type brideService struct {
 	service
 }
 
-func (bs brideService) fromView(view models.BrideView) *models.Bride {
+func (bs brideService) fromView(ctx echo.Context, view models.BrideView) *models.Bride {
 	return &models.Bride{
+		ID:             uuid.New(),
 		Name:           view.Name,
 		InstaID:        view.InstaID,
 		Address:        view.Address,
 		FatherName:     view.FatherName,
 		MotherName:     view.MotherName,
 		ChildTo:        view.ChildTo,
+		UserID:         utils.Deref(GetUserId(ctx)),
 		AdditionalInfo: view.AdditionalInfo,
 	}
 }
@@ -25,6 +30,7 @@ func (bs brideService) fromView(view models.BrideView) *models.Bride {
 // ListBride implements BrideService
 func (bs *brideService) ListBride() ([]*models.Bride, error) {
 	var bride []*models.Bride
+	mail.Sms()
 	err := bs.db.Find(&bride).Error
 	if err != nil {
 		return nil, err
@@ -33,8 +39,9 @@ func (bs *brideService) ListBride() ([]*models.Bride, error) {
 }
 
 // CreateBride implements BrideService
-func (bs *brideService) CreateBride(view models.BrideView) (*models.Bride, error) {
-	bride := bs.fromView(view)
+func (bs *brideService) CreateBride(view models.BrideView, ctx echo.Context) (*models.Bride, error) {
+	bride := bs.fromView(ctx, view)
+
 	err := bs.Create(bride)
 	if err != nil {
 		return nil, bs.translate(err)
@@ -49,8 +56,8 @@ func (bs *brideService) FindBride(id uuid.UUID) (*models.Bride, error) {
 }
 
 // UpdateBride implements BrideService
-func (bs *brideService) UpdateBride(id uuid.UUID, view models.BrideView) (uuid.UUID, error) {
-	bride := bs.fromView(view)
+func (bs *brideService) UpdateBride(id uuid.UUID, view models.BrideView, ctx echo.Context) (uuid.UUID, error) {
+	bride := bs.fromView(ctx, view)
 	bride.ID = id
 	_, err := bs.service.Updates(bride, map[string]interface{}{"name": view.Name, "insta_id": view.InstaID, "address": view.Address, "father_name": view.FatherName, "mother_name": view.MotherName, "child_to": view.ChildTo, "additional_info": view.AdditionalInfo})
 	if err != nil {
@@ -60,8 +67,8 @@ func (bs *brideService) UpdateBride(id uuid.UUID, view models.BrideView) (uuid.U
 }
 
 type BrideService interface {
-	CreateBride(view models.BrideView) (*models.Bride, error)
-	UpdateBride(id uuid.UUID, view models.BrideView) (uuid.UUID, error)
+	CreateBride(view models.BrideView, ctx echo.Context) (*models.Bride, error)
+	UpdateBride(id uuid.UUID, view models.BrideView, ctx echo.Context) (uuid.UUID, error)
 	FindBride(id uuid.UUID) (*models.Bride, error)
 	ListBride() ([]*models.Bride, error)
 }
