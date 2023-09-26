@@ -22,11 +22,16 @@ type Env struct {
 	RefreshTokenSecret     string `mapstructure:"REFRESH_TOKEN_SECRET"`
 	AccessTokenExpiryHour  int    `mapstructure:"ACCESS_TOKEN_EXPIRY_HOUR"`
 	RefreshTokenExpiryHour int    `mapstructure:"REFRESH_TOKEN_EXPIRY_HOUR"`
-	MailServer             string `mapstructure:"MAIL_SERVER"`
-	MailServerPort         int    `mapstructure:"MAIL_SERVER_PORT"`
-	MailUsername           string `mapstructure:"MAIL_USERNAME"`
-	MailPass               string `mapstructure:"MAIL_PASS"`
-	ClientBaseUrl          string `mapstructure:"CLIENT_BASE_URL_DEV"`
+
+	EmailSenderName     string `mapstructure:"EMAIL_SENDER_NAME"`
+	EmailSenderAddress  string `mapstructure:"EMAIL_SENDER_ADDRESS"`
+	EmailSenderPassword string `mapstructure:"EMAIL_SENDER_PASSWORD"`
+
+	TwiliSmsNumber      string `mapstructure:"TWILIO_SMS_NUMBER"`
+	TwiliWhatsappNumber string `mapstructure:"TWILIO_WHATSAPP_NUMBER"`
+	TwiliMyNumber       string `mapstructure:"TWILIO_MY_NUMBER"`
+	TwilioAccountSid    string `mapstructure:"TWILIO_ACCOUNT_SID"`
+	TwilioAuthToken     string `mapstructure:"TWILIO_AUTH_TOKEN"`
 }
 
 func NewEnv() *Env {
