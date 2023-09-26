@@ -18,8 +18,8 @@ import (
 func Authenticator(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(e echo.Context) error {
 		user := models.User{
-			ID:    utils.StringToUUID("f3e9a178-337b-40e3-ab35-fa581d41d1e5"),
-			Email: "lamichhane.kebib@gmail.com",
+			ID:    utils.StringToUUID("7c6b53f8-25c3-4228-acb6-8a7247e8ed05"),
+			Email: "test.mail@gmail.com",
 			Phone: "9779806791681",
 		}
 		e.Set("user", user)
