@@ -57,6 +57,7 @@ func (is *invitationService) UpdateInvitation(id uuid.UUID, view models.Invitati
 
 func (is invitationService) fromView(view models.InvitationView) *models.Invitation {
 	return &models.Invitation{
+		ID:    uuid.New(),
 		Title: view.Title,
 		// CoverPhotos: view.CoverPhotos,
 		Quotes:    view.Quotes,
