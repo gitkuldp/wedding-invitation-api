@@ -8,14 +8,13 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
-RUN go mod tidy
 RUN go mod download
 
 
 COPY . .
 
 # # Build the Go application
-RUN go build -v -o main ./cmd/main.go
+RUN go build -o main ./cmd/main.go
 
 # # Expose port 8080
 EXPOSE 8080
