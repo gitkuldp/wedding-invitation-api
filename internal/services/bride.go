@@ -30,7 +30,6 @@ func (bs brideService) fromView(ctx echo.Context, view models.BrideView) *models
 // ListBride implements BrideService
 func (bs *brideService) ListBride() ([]*models.Bride, error) {
 	var bride []*models.Bride
-	mail.Sms()
 	err := bs.db.Find(&bride).Error
 	if err != nil {
 		return nil, err
