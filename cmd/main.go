@@ -39,6 +39,6 @@ func main() {
 	echo.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	v1.Setup(&app, echo)
-	err := echo.Start("https://wedding-invitation-api-production.up.railway.app/" + ":8080")
+	err := echo.Start("https://wedding-invitation-api-production.up.railway.app/" + env.ServerAddress )
 	logrus.Error(err)
 }
