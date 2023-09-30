@@ -1353,9 +1353,6 @@
                 },
                 "name": {
                     "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
                 }
             }
         },
@@ -1416,9 +1413,6 @@
                     "type": "string"
                 },
                 "name": {
-                    "type": "string"
-                },
-                "user_id": {
                     "type": "string"
                 }
             }

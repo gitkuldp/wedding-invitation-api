@@ -82,8 +82,6 @@ definitions:
         type: string
       name:
         type: string
-      user_id:
-        type: string
     type: object
   models.Groom:
     properties:
@@ -123,8 +121,6 @@ definitions:
       mother_name:
         type: string
       name:
-        type: string
-      user_id:
         type: string
     type: object
   models.Invitation:

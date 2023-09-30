@@ -45,7 +45,6 @@ func (as *attachmentService) ListAttachment(ctx echo.Context, params models.Quer
 	if err != nil {
 		return nil, nil, err
 	}
-	fmt.Println("MetaData: ", meta)
 	return attachments, meta, nil
 }
 
