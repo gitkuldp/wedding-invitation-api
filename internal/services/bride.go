@@ -3,7 +3,6 @@ package services
 import (
 	"github.com/gitkuldp/wedding-invitation-api/internal/models"
 	"github.com/gitkuldp/wedding-invitation-api/internal/utils"
-	"github.com/gitkuldp/wedding-invitation-api/mail"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
