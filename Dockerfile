@@ -1,29 +1,30 @@
-# # Use an official Go runtime as a parent image
-FROM golang:1.20 
+# Use an official Go runtime as a parent image
+FROM golang:1.16 AS build
 
-# # Set the working directory to /app
+# Set the working directory inside the container
 WORKDIR /app
 
-# # Copy the current directory contents into the container at /app
-COPY go.mod .
-COPY go.sum .
-
+# Copy the Go module files and download dependencies
+COPY go.mod go.sum ./
 RUN go mod download
 
-
+# Copy the rest of the application source code
 COPY . .
 
-# # Build the Go application
-RUN go build -o main ./cmd/main.go
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/main.go
 
-# # Expose port 8080
+# Use a minimal base image for the final image
+FROM alpine:latest
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the built binary from the build stage
+COPY --from=build /app/main .
+
+# Expose port 8080 (adjust as needed)
 EXPOSE 8080
 
-# # Command to run the executable
-CMD ["./main", "./cmd/migrate/migrate"]
-
-
-
-
-
-
+# Command to run the executable
+CMD ["./main"]
