@@ -25,7 +25,7 @@ import (
 // @name						Bearer
 func main() {
 	app := db.App()
-	env := app.Env
+	// env := app.Env
 	echo := echo.New()
 	echo.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*", "localhost:3000"},
@@ -39,7 +39,6 @@ func main() {
 	echo.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	v1.Setup(&app, echo)
-	fmt.Println("server: ", env.ServerAddress)
 	err := echo.Start(":8080")
 	logrus.Error(err)
 }
