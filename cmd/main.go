@@ -39,6 +39,6 @@ func main() {
 	echo.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	v1.Setup(&app, echo)
-	err := echo.Start(env.ServerAddress + ":8080")
+	err := echo.Start("https://" + env.ServerAddress + ":8080")
 	logrus.Error(err)
 }
