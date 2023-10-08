@@ -3,7 +3,6 @@ package services
 import (
 	"github.com/gitkuldp/wedding-invitation-api/internal/models"
 	"github.com/gitkuldp/wedding-invitation-api/internal/utils"
-	"github.com/gitkuldp/wedding-invitation-api/mail"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -30,7 +29,6 @@ func (bs brideService) fromView(ctx echo.Context, view models.BrideView) *models
 // ListBride implements BrideService
 func (bs *brideService) ListBride() ([]*models.Bride, error) {
 	var bride []*models.Bride
-	mail.Sms()
 	err := bs.db.Find(&bride).Error
 	if err != nil {
 		return nil, err
