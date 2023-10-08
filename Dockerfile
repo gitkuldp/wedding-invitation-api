@@ -12,7 +12,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/main.go
+RUN go build -o main ./cmd/main.go
 
 # Use a minimal base image for the final image
 FROM alpine:latest
