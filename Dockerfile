@@ -27,4 +27,4 @@ COPY --from=build /app/main .
 EXPOSE 8080
 
 # Command to run the executable
-CMD ["./main"]
+CMD ["./app/main"]
