@@ -1,4 +1,4 @@
-package main
+package migrate
 
 import (
 	"os"
@@ -22,7 +22,7 @@ const (
 	// eg: ProdEnv AppEnv = "prod"
 )
 
-func main() {
+func Database() {
 	env := db.NewEnv()
 	db := db.InitDB(env)
 
