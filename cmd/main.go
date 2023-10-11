@@ -26,6 +26,7 @@ import (
 func main() {
 	app := db.App()
 	// env := app.Env
+	migrate.Database()
 	echo := echo.New()
 	echo.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*", "localhost:3000"},
