@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-
+	"github.com/gitkuldp/wedding-invitation-api/cmd/migrate"
 	_ "github.com/gitkuldp/wedding-invitation-api/docs"
 	customMiddleware "github.com/gitkuldp/wedding-invitation-api/internal/api/middleware"
 	v1 "github.com/gitkuldp/wedding-invitation-api/internal/api/v1/routes"
